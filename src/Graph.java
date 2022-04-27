@@ -11,27 +11,51 @@ public class Graph<E> implements GraphInterface
     }
 
     @Override
-    public Object getLabel(int vertex)
+    public E getLabel(int vertex)
     {
-        return null;
+        return labels[vertex];
     }
 
     @Override
     public boolean isEdge(int source, int target)
     {
-        return false;
+        return edges[source][target];
     }
 
     @Override
     public void addEdge(int source, int target)
     {
-
+        edges[source][target] = true;
     }
 
     @Override
     public int[] neighbors(int vertex)
     {
-        return new int[0];
+        // Iterate through the edges leaving the vertex
+        int i;
+        int count = 0;  // number of neighbors
+        int[] answer;
+
+        // First find the number of neighbors that the vertex has
+        for (i = 0; i < labels.length; i++)
+        {
+            if (edges[vertex][i])
+            {
+                count++;
+            }
+        }
+        answer = new int[count];
+        count = 0;
+
+        // Place the index of the neighbor in the answer array 
+        for (i = 0; i < labels.length; i++)
+        {
+            if (edges[vertex][i])
+            {
+                answer[count++] = i;
+            }
+        }
+        return answer;
     }
 
     @Override
