@@ -61,18 +61,19 @@ public class AdjacencyMatrixGraph<E> implements GraphInterface<E>
     @Override
     public void removeEdge(int source, int target)
     {
-
+        // Set the boolean value to "false" to indicate that there is no longer an edge there
+        edges[source][target] = false;
     }
 
     @Override
-    public void setLabel(int vertex, Object getLabel)
+    public void setLabel(int vertex, E newLabel)
     {
-
+        labels[vertex] =  newLabel;
     }
 
     @Override
     public int size()
     {
-        return 0;
+        return labels.length;
     }
 }
