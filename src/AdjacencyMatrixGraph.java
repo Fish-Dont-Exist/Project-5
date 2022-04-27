@@ -1,10 +1,10 @@
-public class Graph<E> implements GraphInterface
+public class AdjacencyMatrixGraph<E> implements GraphInterface<E>
 {
     private boolean[][] edges; // edges[i][j] is true if there is a vertex from i to j
     private E[] labels;        // labels[i] contains the label for vertex i
 
     @SuppressWarnings("unchecked")
-    public Graph(int n)
+    public AdjacencyMatrixGraph(int n)
     {
         edges = new boolean[n][n];    // All values initially false
         labels = (E[]) new Object[n]; // All values initially null
@@ -47,7 +47,7 @@ public class Graph<E> implements GraphInterface
         answer = new int[count];
         count = 0;
 
-        // Place the index of the neighbor in the answer array 
+        // Place the index of the neighbor in the answer array
         for (i = 0; i < labels.length; i++)
         {
             if (edges[vertex][i])
