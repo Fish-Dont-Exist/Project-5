@@ -1,4 +1,4 @@
-package GraphPackage;
+//package GraphPackage;
 import java.util.Iterator;
 public interface VertexInterface<T>
 {
