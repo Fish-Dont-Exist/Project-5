@@ -47,19 +47,42 @@ class Vertex<T> implements VertexInterface<T>
     @Override
     public boolean connect(VertexInterface<T> endVertex, double edgeWeight)
     {
-        return false;
-    }
+        boolean connection = false;
+        if (!this.equals(endVertex))
+        { // Checks if the vertices are unique
+            Iterator<VertexInterface<T>> neighbors = getNeighborIterator();
+            boolean duplicatedEdge = false;
+
+            while (!duplicatedEdge && neighbors.hasNext())
+            {
+                VertexInterface<T> nextNeighbor = neighbors.next();
+                if (endVertex.equals(nextNeighbor))
+                {
+                    duplicatedEdge = true;
+                } // end while
+            }
+
+            if (!duplicatedEdge)
+            {
+                edgeList.add(new Edge(endVertex, edgeWeight));
+                result = true;
+            } // end if
+
+        } // end if
+        return connection;
+    } // end connect
 
     @Override
     public boolean connect(VertexInterface<T> endVertex)
     {
-        return false;
-    }
+        return connect(endVertex, 0);
+    } // end connect
 
     @Override
     public Iterator<VertexInterface<T>> getNeighborIterator()
     {
-        return null;
+        return new NeighborIterator();
+        // end getNeighborIterator
     }
 
     @Override
