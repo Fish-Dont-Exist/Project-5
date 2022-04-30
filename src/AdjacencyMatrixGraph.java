@@ -76,4 +76,19 @@ public class AdjacencyMatrixGraph<E> implements GraphInterface<E>
     {
         return labels.length;
     }
+
+    @Override
+    public String toString()
+    {
+        String graph = "";
+        for (int i = 0; i < edges.length; i++)
+        {
+            for (int j = 0; j < edges[i].length; j++)
+            {
+                graph += edges[i][j] + " ";
+            }
+            graph += "\n";
+        }
+        return graph;
+    }
 }
