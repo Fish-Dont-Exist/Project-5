@@ -1,5 +1,4 @@
 import java.util.Iterator;
-import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 class Vertex<T> implements VertexInterface<T>
@@ -23,26 +22,26 @@ class Vertex<T> implements VertexInterface<T>
     @Override
     public T getLabel()
     {
-        return null;
-    }
+        return label;
+    } // end getLabel
 
     @Override
     public void visit()
     {
-
-    }
+        visited = true;
+    } // end visit
 
     @Override
     public void unvisit()
     {
-
-    }
+        visited = false;
+    } // end unvisit
 
     @Override
     public boolean isVisited()
     {
-        return false;
-    }
+        return (visited);
+    } // end isVisited
 
     @Override
     public boolean connect(VertexInterface<T> endVertex, double edgeWeight)
@@ -85,6 +84,7 @@ class Vertex<T> implements VertexInterface<T>
         // end getNeighborIterator
     }
 
+    // Temp comment: have no idea what this is for yet, holding off on creating the WeightIterator class
     @Override
     public Iterator<Double> getWeightIterator()
     {
@@ -94,44 +94,73 @@ class Vertex<T> implements VertexInterface<T>
     @Override
     public boolean hasNeighbor()
     {
-        return false;
-    }
+        return !edgeList.isEmpty();
+    } // end hasNeighbor
 
     @Override
     public VertexInterface<T> getUnvisitedNeighbor()
     {
-        return null;
-    }
+        VertexInterface<T> unvisitedNeighbor = null;
+        Iterator<VertexInterface<T>> neighbors = getNeighborIterator();
+
+        while (neighbors.hasNext() && (unvisitedNeighbor == null))
+        {
+            VertexInterface<T> nextNeighbor = neighbors.next();
+            if (!nextNeighbor.isVisited())
+            {
+                result = nextNeighbor;
+            } //end if
+        } //end while
+        return unvisitedNeighbor;
+    } //end getUnvisitedNeighbor
 
     @Override
     public void setPredecessor(VertexInterface<T> predecessor)
     {
+        previousVertex = predecessor;
+    } // end setPredecessor
 
-    }
-
+    // Temp comment: this might return null if there isnt any predecessor
     @Override
     public VertexInterface<T> getPredecessor()
     {
-        return null;
-    }
+        return previousVertex;
+    } // end getPredecessor
 
     @Override
     public boolean hasPredecessor()
     {
-        return false;
+        return (!previousVertex == null);
     }
 
     @Override
     public void setCost(double newCost)
     {
-
-    }
+        cost = newCost;
+    } // end setCost
 
     @Override
     public double getCost()
     {
-        return 0;
-    }
+        return cost;
+    } // end getCost
+
+    @Override
+    public boolean equals(Object other)
+    {
+        boolean isEquals;
+        if ((other == null) || (getClass() != other.getClass()))
+        {
+            isEquals = false;
+        }
+        else
+        {
+            @SupressWarnings("unchecked")
+            Vertex<T> otherVertex = (Vertex<T>)other;
+            isEquals = label.equals(otherVertex.label);
+        } // end if
+        return isEquals;
+    } // end equals
 
     protected class Edge
     {
