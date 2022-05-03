@@ -1,13 +1,17 @@
-public class AdjacencyMatrixGraph<E> implements GraphInterface<E>
+public class Graph<E> implements GraphInterface<E>
 {
     private boolean[][] edges; // edges[i][j] is true if there is a vertex from i to j
     private E[] labels;        // labels[i] contains the label for vertex i
+    private boolean[] visited; // vertices that have been traversed (true if visited, null otherwise
+
+
 
     @SuppressWarnings("unchecked")
-    public AdjacencyMatrixGraph(int n)
+    public Graph(int n)
     {
         edges = new boolean[n][n];    // All values initially false
         labels = (E[]) new Object[n]; // All values initially null
+        visited = new boolean[n];     // all values initially false
     }
 
     @Override
@@ -90,5 +94,46 @@ public class AdjacencyMatrixGraph<E> implements GraphInterface<E>
             graph += "\n";
         }
         return graph;
+    }
+
+    public QueueInterface<Integer> getBreadthFirstTraversal(int origin)
+    {
+        resetVertices(); // reset the vertices
+        QueueInterface<Integer> traversalOrder = new LinkedQueue<>(); // queue for resulting traversal order
+        QueueInterface<Integer> vertexQueue = new LinkedQueue<>();    // queue for vertices as they are visited
+        visited[origin] = true; // mark originVertex as visited
+        traversalOrder.enqueue(origin);
+        vertexQueue.enqueue(origin);
+
+        while (!vertexQueue.isEmpty())
+        {
+            int frontVertex = vertexQueue.dequeue();
+            int neighborIndex = 0;
+
+            while (neighborIndex < neighbors(frontVertex).length ) // while frontVertex has a neighbor
+            {
+                int nextNeighbor = neighbors(frontVertex)[neighborIndex];
+                if (!visited[nextNeighbor])
+                {
+                    visited[nextNeighbor] = true;
+                    traversalOrder.enqueue(nextNeighbor);
+                    vertexQueue.enqueue(nextNeighbor);
+                }
+                neighborIndex++;
+            }
+        }
+        return traversalOrder;
+    }
+
+    private void resetVertices()
+    {
+        if (visited != null)
+        {
+            // Reset all the vertices
+            for (int i = 0; i < size(); i++)
+            {
+                visited[i] = false;
+            }
+        }
     }
 }
