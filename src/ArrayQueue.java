@@ -9,11 +9,11 @@ public class ArrayQueue<T> implements QueueInterface<T>
     private int frontIndex;
     private int backIndex;
     private boolean integrityOK;
-    private static final int DEFUALT_CAPACITY = 50;
+    private static final int DEFAULT_CAPACITY = 50;
     private static final int MAX_CAPACITY = 10000;
 
     public ArrayQueue() {
-        this(DEFUALT_CAPACITY);
+        this(DEFAULT_CAPACITY);
     } // End default constructor
 
     public ArrayQueue(int initialCapacity)
