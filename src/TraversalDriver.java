@@ -2,8 +2,7 @@ import java.util.Arrays;
 
 public class TraversalDriver
 {
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         QueueInterface<String> myQueue = new ArrayQueue<>();
         myQueue.enqueue("alan");
         myQueue.enqueue("aldo");
@@ -61,8 +60,7 @@ public class TraversalDriver
         System.out.println("Tests: ");
         QueueInterface<Integer> traversed2 = graph2.getBreadthFirstTraversal(0);
 
-        toLabel(traversed2, graph2);
-
+        System.out.println(toLabel(traversed2, graph2));
     }
 
     /**
@@ -79,5 +77,4 @@ public class TraversalDriver
 
         return result;
     }
-
 }
