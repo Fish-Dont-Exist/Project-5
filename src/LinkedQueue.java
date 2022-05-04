@@ -31,7 +31,6 @@ public class LinkedQueue<T> implements QueueInterface<T>
         if (firstNode == null)
             lastNode = null;
         return front;
-//        return null;
     }
 
     @Override

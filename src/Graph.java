@@ -125,6 +125,36 @@ public class Graph<E> implements GraphInterface<E>
         return traversalOrder;
     }
 
+
+    public QueueInterface<Integer> getDepthFirstTraversal(int origin)
+    {
+        resetVertices();
+        QueueInterface<Integer> traversalOrder = new LinkedQueue<>();
+        StackInterface<Integer> vertexStack = new LinkedStack<>();
+
+        visited[origin] = true;
+        traversalOrder.enqueue(origin);
+        vertexStack.push(origin);
+
+        while (!vertexStack.isEmpty())
+        {
+	   int topVertex = vertexStack.peek();			
+	   int nextNeighbor = neighbors(topVertex)[neighborIndex];	// (needs to change) topVertex.getUnvisitedNeighbor
+	   if (nextNeighbor != 0)	 // (needs to change) If there are no more unchecked neighbors
+	   {
+		visited[nextNeighbor] = true;
+		traversalOrder.enqueue(nextNeighbor);
+		vertexStack.push(nextNeighbor);
+	   }
+
+	   else // all neighbors visited
+	   {
+		vertexStack.pop();
+	   }
+        }// end while
+        return traversalOrder;
+    } // end getDepthFirstTraversal
+
     private void resetVertices()
     {
         if (visited != null)
