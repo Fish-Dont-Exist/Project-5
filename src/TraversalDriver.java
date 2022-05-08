@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Queue;
 
 public class TraversalDriver
 {
@@ -41,26 +42,35 @@ public class TraversalDriver
         graph.addEdge(8, 5);
 
         System.out.println("Testing on graph from assignment: ");
-        System.out.println(graph);
         System.out.println(Arrays.toString(graph.neighbors(0)));
-        QueueInterface<Integer> traversed = graph.getBreadthFirstTraversal(0);
-        System.out.println("The breadth-first search traversal: " + toLabel(traversed, graph));
+        QueueInterface<Integer> breadthFirstTraversal = graph.getBreadthFirstTraversal(0);
+        System.out.println("The breadth-first search traversal: " + toLabel(breadthFirstTraversal, graph));
+
+        QueueInterface<Integer> depthFirstTraversal = graph.getDepthFirstTraversal(0);
+        System.out.println("The depth-first search traversal: " + toLabel(depthFirstTraversal, graph));
 
 
-        Graph<String> graph2 = new Graph<>(4);
-        graph2.setLabel(0, "A");
-        graph2.setLabel(1, "B");
-        graph2.setLabel(2, "E");
-        graph2.setLabel(3, "H");
-
-        graph2.addEdge(0, 1);
-        graph2.addEdge(0, 2);
-        graph2.addEdge(0, 3);
-
-        System.out.println("Tests: ");
-        QueueInterface<Integer> traversed2 = graph2.getBreadthFirstTraversal(0);
-
-        System.out.println(toLabel(traversed2, graph2));
+        // Basic tests with ez graphs
+//        Graph<String> graph2 = new Graph<>(5);
+//        graph2.setLabel(0, "A");
+//        graph2.setLabel(1, "B");
+//        graph2.setLabel(2, "C");
+//        graph2.setLabel(3, "D");
+//        graph2.setLabel(4, "E");
+//
+//        graph2.addEdge(0, 1);
+//        graph2.addEdge(0, 2);
+//        graph2.addEdge(0, 3);
+//        graph2.addEdge(2, 3);
+//        graph2.addEdge(1, 4);
+////        graph2.addEdge(2, 3);
+//
+//        System.out.println("Tests: ");
+//        QueueInterface<Integer> traversed2 = graph2.getBreadthFirstTraversal(0);
+//        System.out.println(toLabel(traversed2, graph2));
+//
+//        QueueInterface<Integer> dft = graph2.getDepthFirstTraversal(0);
+//        System.out.println(toLabel(dft, graph2)); // expect:
     }
 
     /**
