@@ -132,29 +132,59 @@ public class Graph<E> implements GraphInterface<E>
         QueueInterface<Integer> traversalOrder = new LinkedQueue<>();
         StackInterface<Integer> vertexStack = new LinkedStack<>();
 
-        visited[origin] = true;
+        visited[origin] = true; // Mark the origin vertex as visited
         traversalOrder.enqueue(origin);
         vertexStack.push(origin);
 
         while (!vertexStack.isEmpty())
         {
-	   int topVertex = vertexStack.peek();			
-	   int nextNeighbor = neighbors(topVertex)[neighborIndex];	// (needs to change) topVertex.getUnvisitedNeighbor
-	   if (nextNeighbor != 0)	 // (needs to change) If there are no more unchecked neighbors
-	   {
-		visited[nextNeighbor] = true;
-		traversalOrder.enqueue(nextNeighbor);
-		vertexStack.push(nextNeighbor);
-	   }
+            int topVertex = vertexStack.peek();
+            // If topVertex has an unvisited neighbor => if the length of the neighbors array is non-zero AND at least
+            // one of the neighbors is unvisited
+            // Check if at least one is unvisited
+            boolean unvisited = atLeastOneUnvisited(neighbors(topVertex));
 
-	   else // all neighbors visited
-	   {
-		vertexStack.pop();
-	   }
+            if ((neighbors(topVertex).length != 0) && (unvisited))
+            {
+                // Look at the topVertex's next neighbor that is unvisited (find the one that is unvisited in the list of neighbors)
+                int nextNeighbor = -1;
+                for (int ele : neighbors(topVertex))
+                {
+                    if (!visited[ele])
+                    {
+                        nextNeighbor = ele;
+                        break;
+                    }
+                }
+
+                // Mark that neighbor as visited
+                visited[nextNeighbor] = true;
+
+                // Enqueue the next neighbor to the traversal order
+                traversalOrder.enqueue(nextNeighbor);
+
+                // Push the nextNeighbor to the vertex stack
+                vertexStack.push(nextNeighbor);
+            }
+	        else // all neighbors visited
+	        {
+		    vertexStack.pop();
+	        }
         }// end while
         return traversalOrder;
     } // end getDepthFirstTraversal
 
+    private boolean atLeastOneUnvisited(int[] neighbors)
+    {
+        for (int neighbor : neighbors)
+        {
+            if (!visited[neighbor])
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     private void resetVertices()
     {
         if (visited != null)
