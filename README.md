@@ -7,8 +7,8 @@ Alan Perez -
 
 Benjamin Dinh - Worked on depth-first traversal and did the unit testing.
 
-Jesse Chu - 
+Jesse Chu - Worked on graph interface and javadocs.
 
 Video:
 
-Javadocs:
+Javadocs: https://fish-dont-exist.github.io/Project-5/
